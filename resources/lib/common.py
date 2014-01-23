@@ -12,7 +12,7 @@ def get_settings():
         'port': __settings__.getSetting('rpc_port'),
         'user': __settings__.getSetting('rpc_user'),
         'password': __settings__.getSetting('rpc_password'),
-        'stop_all_on_playback': __settings__.getSetting('stop_all_on_playback')
+        'action_on_playback': __settings__.getSetting('action_on_playback')
     }
     return params
 

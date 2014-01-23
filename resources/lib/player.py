@@ -21,13 +21,18 @@ class SubstitutePlayer(xbmc.Player):
 
     def onPlayBackStarted(self):
         self.refreshSettings()
-        if self.active and xbmc.Player().isPlayingVideo():
-            self.stopAllTorrents()
+        if self.mode != '0' and xbmc.Player().isPlayingVideo():
+            if self.mode == '1':
+                self.stopAllTorrents()
+            elif self.mode == '2':
+                self.enableSpeedLimit()
 
     def onPlayBackStopped(self):
         self.refreshSettings()
-        if self.active:
+        if self.mode == '1':
             self.startAllTorrents()
+        elif self.mode == '2':
+            self.disableSpeedLimit()
 
     def startAllTorrents(self):
         if self.transmission:
@@ -41,10 +46,18 @@ class SubstitutePlayer(xbmc.Player):
             for tid, torrent in torrents.iteritems():
                 self.transmission.stop(tid)
 
+    def enableSpeedLimit(self):
+        if self.transmission:
+            self.transmission.set_session(alt_speed_enabled=True)
+
+    def disableSpeedLimit(self):
+        if self.transmission:
+            self.transmission.set_session(alt_speed_enabled=False)
+
     def refreshSettings(self):
         settings = common.get_settings()
         if settings != self.prev_settings:
-            self.active = (settings['stop_all_on_playback'] == 'true')
+            self.mode = settings['action_on_playback']
             try:
                 self.transmission = common.get_rpc_client()
             except:

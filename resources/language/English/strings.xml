@@ -41,7 +41,10 @@
     <string id="1002">Port</string>
     <string id="1003">User</string>
     <string id="1004">Password</string>
-    <string id="1005">Stop all torrents on video playback</string>
+    <string id="1005">Action on video playback</string>
+    <string id="1006">None</string>
+    <string id="1007">Pause all torrents</string>
+    <string id="1008">Enable Temporary Speed Limits</string>
 
     <!-- Errors -->
     <string id="9000">An unexpected error occurred</string>
